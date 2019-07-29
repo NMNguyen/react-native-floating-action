@@ -8,7 +8,9 @@ import {
   TouchableOpacity,
   LayoutAnimation,
   Platform,
-  Keyboard
+  Keyboard,
+  View,
+  Text
 } from "react-native";
 
 import FloatingActionItem from "./FloatingActionItem";
@@ -18,7 +20,7 @@ import { isIphoneX } from "./utils/platform";
 import { getTouchableComponent, getRippleProps } from "./utils/touchable";
 
 const DEVICE_WIDTH = Dimensions.get("window").width;
-const ACTION_BUTTON_SIZE = 56;
+const ACTION_BUTTON_SIZE = 40;
 
 const DEFAULT_SHADOW_PROPS = {
   shadowOpacity: 0.35,
@@ -43,9 +45,9 @@ class FloatingAction extends Component {
     );
     this.actionsBottomAnimation = new Animated.Value(
       ACTION_BUTTON_SIZE +
-        props.distanceToEdge +
-        props.actionsPaddingTopBottom +
-        props.mainVerticalDistance
+      props.distanceToEdge +
+      props.actionsPaddingTopBottom +
+      props.mainVerticalDistance
     );
     this.animation = new Animated.Value(0);
     this.actionsAnimation = new Animated.Value(0);
@@ -190,7 +192,7 @@ class FloatingAction extends Component {
       );
     }
 
-    return <AddIcon width={iconWidth} height={iconHeight} />;
+    return (<AddIcon width={iconWidth} height={iconHeight} />);
   };
 
   reset = () => {
@@ -325,7 +327,8 @@ class FloatingAction extends Component {
       );
     }
 
-    const mainButtonColor = buttonColor || color;
+    // const mainButtonColor = buttonColor || color;
+    const mainButtonColor = 'white';
 
     let animatedVisibleView;
     let animatedViewStyle;
