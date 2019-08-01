@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import PropTypes from "prop-types";
-import { StyleSheet, Text, Image, View, Animated } from "react-native";
-
+import { Dimensions, StyleSheet, Text, Image, View, Animated } from "react-native";
+import { Button} from 'react-native-ui-kitten';
 import { getTouchableComponent } from "./utils/touchable";
 
 class FloatingActionItem extends Component {
@@ -86,7 +86,15 @@ class FloatingActionItem extends Component {
 
   renderButton() {
     const { icon, color, shadow } = this.props;
-
+    const {
+      position,
+      distanceToEdge,
+      paddingTopBottom,
+      render,
+      margin,
+      name,
+      animated
+    } = this.props;
     let iconStyle;
 
     if (icon && icon.uri) {
@@ -94,19 +102,69 @@ class FloatingActionItem extends Component {
     } else {
       iconStyle = styles.icon;
     }
-
     return (
-      <View
-        key="button"
-        style={[styles.button, { backgroundColor: color }, shadow]}
-      >
-        {React.isValidElement(icon) ? (
-          icon
-        ) : (
-          <Image style={iconStyle} source={icon} />
-        )}
-      </View>
-    );
+        <View style={{
+          width: Dimensions.get('screen').width - ((distanceToEdge + margin) *2),
+          height: 140,
+          borderRadius: 10,
+          padding: 15,
+          borderWidth:1,
+          borderColor:'white',
+          backgroundColor:'#FF4C4F'}}>
+          <View style={{flexDirection: 'row'}}>
+            <Image style={{
+              resizeMode:'cover',
+              borderColor:'white',
+              borderWidth:1,
+              width:50,
+              height:50,
+              borderRadius:25,
+            }} source={{uri:'https://firebasestorage.googleapis.com/v0/b/quizapp-7ba4c.appspot.com/o/56344551_659831507790095_5712576227626188800_o.jpg?alt=media&token=99364609-aaf1-478c-97b3-caab0b2ce8cc'}}/>
+            <View style={{flex:1,}}>
+              <Text style={{
+                marginLeft:10,
+                fontSize:14,
+                color: 'white'
+              }}>
+                <Text style={{fontWeight:'bold'}}>
+                  Mai Nguyệt Minh&nbsp;
+                </Text>
+                vừa khiêu chiến bạn.
+              </Text>
+              <Text numberOfLines={2}
+                  style={{
+                marginLeft:10,
+                marginTop:5,
+                fontStyle:'italic',
+                marginBottom:10,
+                fontSize:14,
+                color: 'white'
+              }}>"Ngon thì nhào vô kiếm sẹo, xem ai hơn ai nào con gà"</Text>
+            </View>
+            <Image style={{width:30, height: 30}}
+                 source={{uri:'https://image.flaticon.com/icons/png/512/1191/1191131.png'}}></Image>
+          </View>
+          <View style={{flexDirection: 'row', justifyContent: 'flex-end'}}>
+            <Button size={'tiny'}
+                    style={{borderWidth:0,color:'#505050', backgroundColor:'#505050'}}>
+              Tạm thời lui
+            </Button>
+            <Button size={'tiny'} style={{borderWidth:1,marginLeft:10, height:30,}} status={'warning'}>Chiến</Button>
+          </View>
+        </View>
+    )
+    // return (
+    //   <View
+    //     key="button"
+    //     style={[styles.button, { backgroundColor: color }, shadow]}
+    //   >
+    //     {React.isValidElement(icon) ? (
+    //       icon
+    //     ) : (
+    //       <Image style={iconStyle} source={icon} />
+    //     )}
+    //   </View>
+    // );
   }
 
   render() {
@@ -150,7 +208,7 @@ class FloatingActionItem extends Component {
       if (render) {
         components.push(render({ key: name }));
       } else {
-        components.push(this.renderText());
+        // components.push(this.renderText());
         components.push(this.renderButton());
       }
       distanceToEdgeActionContainer.paddingRight = distanceToEdge + margin;
@@ -163,7 +221,7 @@ class FloatingActionItem extends Component {
     return (
       <Touchable
         activeOpacity={0.4}
-        style={styles.container}
+        style={[styles.container]}
         onPress={this.handleOnPress}
       >
         <Animated.View
@@ -174,8 +232,8 @@ class FloatingActionItem extends Component {
             distanceToEdgeActionContainer,
             {
               paddingTop: paddingTopBottom,
-              paddingBottom: paddingTopBottom
-            }
+              paddingBottom: paddingTopBottom,
+            },
           ]}
         >
           {components}
@@ -219,7 +277,7 @@ FloatingActionItem.propTypes = {
 
 FloatingActionItem.defaultProps = {
   color: "#1253bc",
-  distanceToEdge: 30,
+  distanceToEdge: 20,
   textElevation: 5,
   textColor: "#444444",
   textBackground: "#ffffff",

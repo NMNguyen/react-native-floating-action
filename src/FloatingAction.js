@@ -45,9 +45,9 @@ class FloatingAction extends Component {
     );
     this.actionsBottomAnimation = new Animated.Value(
       ACTION_BUTTON_SIZE +
-      props.distanceToEdge +
-      props.actionsPaddingTopBottom +
-      props.mainVerticalDistance
+        props.distanceToEdge +
+        props.actionsPaddingTopBottom +
+        props.mainVerticalDistance
     );
     this.animation = new Animated.Value(0);
     this.actionsAnimation = new Animated.Value(0);
@@ -405,6 +405,10 @@ class FloatingAction extends Component {
           styles[`${position}Button`],
           propStyles,
           animatedVisibleView,
+          {
+            bottom:30,
+            right:20,
+          },
           this.getShadow()
         ]}
         accessible
@@ -638,7 +642,7 @@ const styles = StyleSheet.create({
     alignItems: "center",
     justifyContent: "center",
     elevation: 5,
-    position: "absolute"
+    position: "absolute",
   },
   button: {
     zIndex: 3,
